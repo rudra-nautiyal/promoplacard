@@ -29,7 +29,10 @@
     height: 100vh;
     width: 100vw;
     position: fixed;
-    background-image: radial-gradient(rgba(255 255 255 / 0.3) 1px, transparent 0);
+    background-image: radial-gradient(
+      rgba(255 255 255 / 0.3) 1px,
+      transparent 0
+    );
     background-size: 34px 34px;
     mask: linear-gradient(-20deg, transparent 40%, white);
     top: 0;
@@ -40,23 +43,6 @@
   main {
     display: flex;
     gap: 100px;
-  }
-
-  .ric-link {
-    position: absolute;
-    top: 1.5rem;
-    left: 1.5rem;
-  }
-
-  a svg {
-    width: 60px;
-    height: auto;
-    transition: transform 0.2s, filter 0.2s;
-  }
-
-  a svg:hover {
-    transform: scale(1.2) rotate(-10deg);
-    filter: drop-shadow(rgba(255 255 255 / 0.2) 0 2px 10px);
   }
 }
 
@@ -90,7 +76,7 @@
     margin: -6px;
     z-index: -1;
     border-radius: 14px;
-    animation: spin 4s linear infinite;
+    animation: spin 5s linear infinite;
   }
 
   .card::after {
@@ -200,11 +186,17 @@
   }
 
   .card-front {
-    background-image: radial-gradient(rgba(255 255 255 / 0.3) 1px, transparent 0);
+    background-image: radial-gradient(
+      rgba(255 255 255 / 0.3) 1px,
+      transparent 0
+    );
   }
 
   .card-back {
-    background-image: radial-gradient(rgba(255 255 255 / 0.3) 1px, transparent 0);
+    background-image: radial-gradient(
+      rgba(255 255 255 / 0.3) 1px,
+      transparent 0
+    );
     color: #fff;
     transform: rotateY(180deg);
     flex-direction: column; /* Ensure buttons stack vertically */
@@ -243,18 +235,88 @@
     display: block;
     width: 100%;
     margin-bottom: 10px;
-    padding: 10px;
+    padding: 12px 15px;
     font-size: 1rem;
     text-align: center;
-    background-color: #5c6bc0; /* Background color */
-    border: none; /* Remove border */
     color: white;
-    border-radius: 5px;
+    background: linear-gradient(
+      145deg,
+      #6d8ff0,
+      #5c6bc0
+    ); /* Initial gradient */
+    border: 2px solid transparent; /* Border for glow effect */
+    border-radius: 12px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    position: relative;
+    z-index: 0;
+    overflow: hidden; /* Ensure inner animations stay contained */
+    transition: transform 0.3s ease, box-shadow 0.4s ease,
+      border-color 0.3s ease;
+  }
+
+  .card-back button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -50%;
+    width: 200%;
+    height: 300%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.2), transparent);
+    transform: translateY(-100%) rotate(45deg);
+    transition: transform 0.6s ease;
+    z-index: -1;
+  }
+
+  .card-back button:hover::before {
+    transform: translateY(0) rotate(45deg); /* Animates gradient slide on hover */
   }
 
   .card-back button:hover {
-    background-color: #3f4a9b; /* Darken button on hover */
+    background: linear-gradient(
+      145deg,
+      #5c6bc0,
+      #3f4a9b
+    ); /* Dynamic gradient */
+    border-color: rgba(98, 121, 214, 0.8); /* Border glow */
+    transform: translateY(-4px) scale(1.05); /* Elevated hover effect */
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2), 0 0 15px rgba(98, 121, 214, 0.5);
+  }
+
+  .card-back button:active {
+    background: linear-gradient(
+      145deg,
+      #3f4a9b,
+      #2d3a7e
+    ); /* Pressed gradient */
+    transform: translateY(2px) scale(0.98); /* Button press effect */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3), 0 0 8px rgba(98, 121, 214, 0.4);
+  }
+
+  .card-back button span {
+    position: relative;
+    z-index: 1;
+  }
+
+  .card-back button::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      120deg,
+      rgba(255, 255, 255, 0.3),
+      transparent 70%
+    );
+    mix-blend-mode: overlay;
+    opacity: 0;
+    z-index: -1;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+
+  .card-back button:hover::after {
+    opacity: 1;
+    transform: translateY(-10px);
   }
 }
